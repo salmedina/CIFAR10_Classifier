@@ -6,7 +6,7 @@ if ~isa(image, 'single'), image = single(image); end;
 cellSize = 8;
 hog = vl_hog(image, cellSize, 'verbose');
 imhog = vl_hog('render', hog, 'verbose');
-clf; imagesc(imhog); colormap gray;
+%clf; imagesc(imhog); colormap gray;
 
 %% feature - vectorized HOG descriptor
 feat = hog(:);

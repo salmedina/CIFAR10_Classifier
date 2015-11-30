@@ -1,10 +1,11 @@
-function [Y] = classify(p, Mean, Var, X)
-% X is the test data, Model is the model learnt during training, 
-% and Y contains the predicted labels of the data points in X. 
-
-% The dimensions of X are Ntest × D and dimensions of Y are Ntest × 1. 
-% where Ntest is the number of data points in the test data 
-% and D is the dimension of each point (number of features).
+function [ Y ] = classify( Model, X )
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+    load('Model.mat');
+    p = Model{1};
+    Mean = Model{2};
+    Var = Model{3};
+    
     features = data2features(X);
     F = size(Mean, 1); % number of features
     C = size(Mean, 2); % number of classes
@@ -37,3 +38,4 @@ function [gv] = GuassianValue(mean, variance, xValue)
     base = sqrt(2*pi*variance);
     gv = exp(exponent) / base;
 end
+
