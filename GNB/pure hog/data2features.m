@@ -1,4 +1,4 @@
-function [ features ] = data2features( data )
+ function [ features ] = data2features( data )
 % extract features from data
     N = size(data, 1); % total number of samples
     F = cell(N, 1); % to get the feature matrix
