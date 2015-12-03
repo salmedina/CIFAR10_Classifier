@@ -1,4 +1,4 @@
-function [Y] = classify2(Model, X)
+function [Y] = classify(Model, X)
 % X is the test data, Model is the model learnt during training, 
 % and Y contains the predicted labels of the data points in X. 
 
@@ -6,14 +6,23 @@ function [Y] = classify2(Model, X)
 % where Ntest is the number of data points in the test data 
 % and D is the dimension of each point (number of features).
 
-    load('Model2.mat');
-    p = Model2{1};
-    Mean = Model2{2};
-    Var = Model2{3};
-    centroids = Model2{4};
+    %load('Model.mat');
+    p = Model{1};
+    Mean = Model{2};
+    Var = Model{3};
+    centroids = Model{4};
     
-    origin_feat = data2features(X);
-    features = knn( origin_feat, centroids);
+    descriptors = extract_all_dsift(X, 8);
+    descriptors = descriptors';
+    [ indices ] = knn( descriptors, centroids );
+    features = transform_data(indices, 64, 10);
+    
+    %[cur_cluster, centroids] = k_means(descriptors, 10);
+    %bow_data = transform_data(cur_cluster, 64, 10);
+
+    %origin_feat = data2features(X);
+    %indices = knn( origin_feat, centroids);
+    %features = knnInGNB(indices);
     F = size(Mean, 1); % number of features
     C = size(Mean, 2); % number of classes
     N = size(features, 1); % numebr of target samples

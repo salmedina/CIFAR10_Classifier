@@ -1,21 +1,8 @@
-function [Y] = classify2(Model, X)
-% X is the test data, Model is the model learnt during training, 
-% and Y contains the predicted labels of the data points in X. 
-
-% The dimensions of X are Ntest × D and dimensions of Y are Ntest × 1. 
-% where Ntest is the number of data points in the test data 
-% and D is the dimension of each point (number of features).
-
-    load('Model2.mat');
-    p = Model2{1};
-    Mean = Model2{2};
-    Var = Model2{3};
-    centroids = Model2{4};
-    
-    origin_feat = data2features(X);
-    features = knn( origin_feat, centroids);
-    F = size(Mean, 1); % number of features
-    C = size(Mean, 2); % number of classes
+function [ Y ] = tmp( features, mean, var, p )
+%UNTITLED10 Summary of this function goes here
+%   Detailed explanation goes here
+    F = size(mean, 1); % number of features
+    C = size(mean, 2); % number of classes
     N = size(features, 1); % numebr of target samples
     Y = zeros(N, 1);
     %Y = cell(N, 1);
@@ -28,7 +15,7 @@ function [Y] = classify2(Model, X)
             num = 1;
             %iterate over each feature
             for i = 1:F
-                num = num + log(GuassianValue(Mean(i, j), Var(i, j), features(k, i))); % get P(X|Y)
+                num = num + log(GuassianValue(mean(i, j), var(i, j), features(k, i))); % get P(X|Y)
             end
             num = num + log(p(j, 1)); % get the likelihood P(X|Y)P(Y)
             Prob(1, j) = num; % record this probability
