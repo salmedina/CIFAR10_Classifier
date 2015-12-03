@@ -15,4 +15,3 @@ function [ features ] = data2features( data )
     
     features = cell2mat(F); % get the NxF feature matrix, here F stand for the number of features
 end
-
