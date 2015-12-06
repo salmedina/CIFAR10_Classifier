@@ -1,6 +1,6 @@
 function [model] = update_mlp(model, input, target)
-% this function is called once for every pattern presentation, weights are
-% updated every time, which is the magical step.
+% this function is called once for every pattern presentation,
+% weights are updated every time.
 
 % this holds the activation of every neuron in every layer
     activations = cell(length(model.weights)+1,1);

@@ -35,10 +35,13 @@ function [model cc output] = train_mlp(input, target, hidden, iterations, learni
         % output.  Initialization is done here randomly.
         model.biases{i} = randn(1,nNeurons(i+1));
         % biases are random as well
-	model.lastdelta{i} = 0;  
+        model.lastdelta{i} = 0;
     end
     
     for i = 1:iterations % repeat the whole training set over and over
+        if mod(i,10)==0
+            display(sprintf('Epoch: %d',i));
+        end
         order = randperm(ntrain);  % randomize the presentations
         for j = 1:ntrain
             % update_mlp is where the training is actually done

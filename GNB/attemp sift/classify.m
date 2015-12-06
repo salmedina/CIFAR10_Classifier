@@ -2,7 +2,7 @@ function [Y] = classify(Model, X)
 % X is the test data, Model is the model learnt during training, 
 % and Y contains the predicted labels of the data points in X. 
 
-% The dimensions of X are Ntest × D and dimensions of Y are Ntest × 1. 
+% The dimensions of X are Ntest ? D and dimensions of Y are Ntest ? 1. 
 % where Ntest is the number of data points in the test data 
 % and D is the dimension of each point (number of features).
 
@@ -12,10 +12,10 @@ function [Y] = classify(Model, X)
     Var = Model{3};
     centroids = Model{4};
     
-    descriptors = extract_all_dsift(X, 8);
-    descriptors = descriptors';
-    [ indices ] = knn( descriptors, centroids );
-    features = transform_data(indices, 64, 10);
+    descriptors = extract_all_dsift(X, 8); %window size of 8
+    descriptors = descriptors'; %extract_all_dsift return vectors in cols
+    [ indices ] = knn( descriptors, centroids ); %set to the closest centroid
+    features = transform_data(indices, 64, 10); %transform the vw's to histograms of vw's
     
     %[cur_cluster, centroids] = k_means(descriptors, 10);
     %bow_data = transform_data(cur_cluster, 64, 10);
