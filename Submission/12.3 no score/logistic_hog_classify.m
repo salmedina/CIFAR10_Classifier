@@ -2,8 +2,8 @@ function [Y]=logistic_hog_classify(Model,X)
 % Uses the pretrained logistic classifier based on HOG features with
 % no whitening
     %Returns theta for HoG
-    load('Model1.mat');
-    theta=Model1{1};
+    %load('Model1.mat');
+    theta=Model{1};
     
     X_descriptors=extract_all_hog(X,8);
     
