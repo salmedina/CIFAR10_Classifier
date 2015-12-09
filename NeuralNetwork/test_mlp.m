@@ -15,7 +15,8 @@ function [output cc] = test_mlp(model, input, target)
     end
     warning('off', 'all') % corrcoef gives some divide by zero errors, this is the laziest fix possible
     cc = corrcoef(target(:), output(:));
-    if(numel(cc)>1) % Octave and MATLAB do corrcoef slightly differently, so this is to make things consistent
+    % Octave and MATLAB do corrcoef slightly differently, so this is to make things consistent
+    if(numel(cc)>1) 
         cc = cc(2,1); 
     end
 end

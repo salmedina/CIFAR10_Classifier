@@ -1,15 +1,5 @@
-function [model cc output] = train_mlp(input, target, hidden, iterations, learning_rate, momentum)
-    % this is the function that handles all the looping and running of the
-    % neural network, it initializes the network based on the number of
-    % hidden layers, and presents every item in the input over and over,
-    % $iterations$ times.
-    % hidden is the only complicated variables.  Like weka, it accepts a
-    % list of values (as a row vector), and interprets it as the number of
-    % neurons in each hidden layer, so [2 2 2] means there will be an input
-    % layer defined by the size of the input, three hidden layers, with 2 
-    % neurons each, and the output layer, defined by the target.  I think
-    % it's pretty good.
-    
+function [model cc output] = train_mlp(input, target, hidden, epochs, learning_rate, momentum)
+    % Trains through backprop with momentum
     % initialize the output
     model = [];
     model.learning_rate = learning_rate;
@@ -38,14 +28,13 @@ function [model cc output] = train_mlp(input, target, hidden, iterations, learni
         model.lastdelta{i} = 0;
     end
     
-    for i = 1:iterations % repeat the whole training set over and over
-        if mod(i,10)==0
-            display(sprintf('Epoch: %d',i));
+    for cur_epoch = 1:epochs % repeat the whole training set over and over
+        if mod(cur_epoch,10)==0
+            display(sprintf('Epoch: %d',cur_epoch));
         end
-        order = randperm(ntrain);  % randomize the presentations
+        order = randperm(ntrain);  % shuffle the training samples
         for j = 1:ntrain
-            % update_mlp is where the training is actually done
-            model = update_mlp(model, input(order(j),:), target(order(j),:));
+            model = back_prop(model, input(order(j),:), target(order(j),:));
         end
     end
     % test the performance on the training set after all is trained.
