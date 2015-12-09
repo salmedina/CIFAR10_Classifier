@@ -3,6 +3,7 @@ function [theta,J]=train_multinomial_logistic(X, Y, k, alpha, max_iter)
 %through gradient descent
 % RETURNS: 1) the parameters theta
 %          2) cost J history through iterations
+
     % m elements; n features
     [m,n] = size(X);
     % add intercept
