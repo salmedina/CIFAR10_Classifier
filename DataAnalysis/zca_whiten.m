@@ -1,3 +1,4 @@
+
 function [X_zca, zca] = zca_whiten(X, epsilon)
 %ZCA whitening, first it normalizes with respect to the mean
 %then sets the variance to 1 by obtaining the eigen-vectors/values
