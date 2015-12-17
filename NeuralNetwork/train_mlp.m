@@ -3,7 +3,7 @@ function [model cc output] = train_mlp(input, target, hidden, epochs, learning_r
     % initialize the output
     model = [];
     model.learning_rate = learning_rate;
-    model.momentum = momentum; % for some heavy ball action
+    model.momentum = momentum; % diminishes fluctuations
 
     % characterize the input and output
     [ntrain nInLayer] = size(input);

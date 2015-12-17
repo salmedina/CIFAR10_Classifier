@@ -1,23 +1,23 @@
 function [model] = back_prop(model, input, target)
-    % this holds the activation of every neuron in every layer
+    % stores all the activations from every neuron from every layer
     activations = cell(length(model.weights)+1,1);
     activations{1} = input;
     
-    % this loop calculates the activations of all the neuron layers
+    % Calc all neuron activations
     for i = 1:length(model.weights)
         % activations{i} is a row vector
         % model.weights{i} is a matrix of weights
         % the output of that product is a row vector of length equal to the
         % number of neurons in the next layer
         temp = activations{i} * model.weights{i} + model.biases{i}; 
-        activations{i+1} = 1./(1+exp(-(temp))); % squash the output a bit
+        activations{i+1} = 1./(1+exp(-(temp))); % Calc the probability
     end
 
     % variable for holding the errors at each level
     errors = cell(length(model.weights),1);
     
-    % this code propagates the error back through the neural net
-    run_error = (target - activations{end}); %keeps track of the error at each loop
+    % this is the actual backprop implementation
+    run_error = (target - activations{end}); %keeps track of the error
     for i = length(model.weights):-1:1
         errors{i} = activations{i+1} .* (1-activations{i+1}) .* (run_error);
         run_error = errors{i} * model.weights{i}';
